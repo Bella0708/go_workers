@@ -6,13 +6,20 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         DOCKER_IMAGE = 'golang'
         DOCKER_TAG = 'latest'
+        HOST = "51.250.110.75"
     }
 
     stages {
         stage('Configure credentials') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_key', keyFileVariable: 'private_key', usernameVariable: 'username')]) {
-                    // Add your steps here
+                    script {
+            remote.name = "${env.HOST}"
+            remote.host = "${env.HOST}"
+            remote.user = "$username"
+            remote.identity = readFile("$private_key")
+            remote.allowAnyHosts = true
+          }
                 }
             }
         }
@@ -23,13 +30,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}")
-                }
-            }
-        }
+       
 
         stage('Build and Push Docker Image') {
             steps {
