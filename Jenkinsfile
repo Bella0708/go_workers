@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         REPO = "zabella/go_workers"
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
         DOCKER_IMAGE = 'golang'
         DOCKER_TAG = 'latest'
         HOST = "51.250.110.75"
