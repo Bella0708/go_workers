@@ -28,7 +28,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git (url: 'https://github.com/Bella0708/go_workers', branch: '${branch}')
+                git (url: 'https://github.com/Bella0708/go_workers', branch: "${branch}")
             }
         }
 
