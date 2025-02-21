@@ -1,4 +1,5 @@
 def remote = [:]
+def git_url = "git@github.com:Bella0708/go_workers.git"
 pipeline {
     agent any
     parameters {
@@ -28,7 +29,8 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git (url: 'https://github.com/Bella0708/go_workers', branch: "${branch}")
+                
+               checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh_key', url: "$git_url"]]])
             }
         }
 
