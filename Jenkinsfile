@@ -10,6 +10,9 @@ pipeline {
         DOCKER_IMAGE = 'golang'
         DOCKER_TAG = 'latest'
         HOST = "3.94.85.77"
+        TOKEN = credentials('tokentell')
+        CHAT_ID = "683028341"
+        LINK = "<a href=\\\"${BUILD_URL}\\\">${JOB_NAME} #${BUILD_NUMBER}</a>"
     }
 
     stages {
