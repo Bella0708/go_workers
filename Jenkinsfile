@@ -1,7 +1,9 @@
 def remote = [:]
 pipeline {
     agent any
-
+    parameters {
+        gitParameter name: 'branch', type: 'PT_BRANCH', sortMode: 'DESCENDING_SMART', selectedValue: 'NONE', quickFilterEnabled: true
+    } 
     environment {
         REPO = "zabella/go_workers"
         DOCKER_IMAGE = 'golang'
@@ -26,7 +28,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git (url: 'https://github.com/Bella0708/go_workers', branch: 'main')
+                git (url: 'https://github.com/Bella0708/go_workers', branch: '${branch}')
             }
         }
 
