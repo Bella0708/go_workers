@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Configure credentials') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_ssh_key', keyFileVariable: 'private_key', usernameVariable: 'username')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'jenkins_key', keyFileVariable: 'private_key', usernameVariable: 'username')]) {
                     script {
             remote.name = "${env.HOST}"
             remote.host = "${env.HOST}"
@@ -33,7 +33,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 
-               checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins_ssh_key', url: "$git_url"]]])
+               checkout([$class: 'GitSCM', branches: [[name: "${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkins_key', url: "$git_url"]]])
             }
         }
 
